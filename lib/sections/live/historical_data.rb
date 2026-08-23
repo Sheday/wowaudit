@@ -70,6 +70,12 @@ module Audit
           @character.data['great_vault_slot_8'] = ""
           @character.data['great_vault_slot_9'] = ""
         end
+
+        # Blizzard keeps last season's M+ score until the character logs out after the season starts.
+        last_logout = @character.data['blizzard_last_modified'].to_i / 1000
+        if last_logout.positive? && Audit.period_from_timestamp(last_logout) < Season.current.data[:first_period]
+          @character.data['m+_score'] = 0
+        end
       end
     end
   end
