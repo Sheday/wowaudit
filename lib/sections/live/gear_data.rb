@@ -52,14 +52,15 @@ module Audit
             embellished_found += check_embellished(embellished_found, item, equipped_item)
 
             if equipped_item.dig(:name_description, :display_string) == Season.current.data[:spark_label]
-              # 2 handed weapons cost 2 sparks
-              sparks_used += (equipped_item[:inventory_type][:type] == "TWOHWEAPON" || (equipped_item[:inventory_type][:name] == "Ranged" && equipped_item.dig(:weapon, :damage, :damage_class, :type) == "PHYSICAL") ? 2 : 1)
+              spark_cost = spark_cost(equipped_item)
+              sparks_used += spark_cost
 
               @character.details['spark_gear'][season_key][item] = {
                 'ilvl' => equipped_item[:level][:value],
                 'id' => equipped_item[:item][:id],
                 'name' => equipped_item[:name],
-                'quality' => QUALITIES[equipped_item[:quality][:type].to_sym]
+                'quality' => QUALITIES[equipped_item[:quality][:type].to_sym],
+                'sparks' => spark_cost
               }
             end
 
@@ -224,6 +225,14 @@ module Audit
 
           { name: name_to_store, quality: quality_to_store, id: equipped_item[:enchantments]&.first&.dig(:enchantment_id), missing: name_to_store == '' }
         end
+      end
+
+      def spark_cost(equipped_item)
+        # 2 handed weapons cost 2 sparks
+        two_handed = equipped_item[:inventory_type][:type] == "TWOHWEAPON" ||
+          (equipped_item[:inventory_type][:name] == "Ranged" && equipped_item.dig(:weapon, :damage, :damage_class, :type) == "PHYSICAL")
+
+        two_handed ? 2 : 1
       end
 
       def two_handed_item?(item)
