@@ -62,6 +62,8 @@ weapon_enchants = {
   8007 => [4, "Worldsoul Cradle (2)"],
   8010 => [2, "Worldsoul Tenacity (1)", { vers: 99 * 0.4 }],
   8011 => [4, "Worldsoul Tenacity (2)", { vers: 124 * 0.4 }],
+  8688 => [2, "Rite of the Hash'ey (1)"],
+  8689 => [4, "Rite of the Hash'ey (2)"],
 }
 
 ring_enchants = {
