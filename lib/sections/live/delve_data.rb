@@ -42,6 +42,9 @@ module Audit
           @character.prey_info[:hard].times do
             delves_this_week << 5
           end
+          @character.prey_info[:world_quests].times do
+            delves_this_week << 7
+          end
           @character.prey_info[:nightmare].times do
             delves_this_week << 8
           end

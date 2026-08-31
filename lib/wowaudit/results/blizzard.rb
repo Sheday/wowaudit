@@ -12,7 +12,7 @@ module Wowaudit
         @ilvl = 0.0
         @stat_info = TRACKED_STATS.values.map { |stat| [stat, { gear: 0, enchantments: 0 }] }.to_h
         @delve_info = { total: 0, tier_1: 0, tier_2: 0, tier_3: 0, tier_4: 0, tier_5: 0, tier_6: 0, tier_7: 0, tier_8: 0, tier_9: 0, tier_10: 0, tier_11: 0 }
-        @prey_info = { normal: 0, hard: 0, nightmare: 0 }
+        @prey_info = { normal: 0, hard: 0, nightmare: 0, world_quests: 0 }
 
         # Populate identifying data regardless of response
         @data['realm_slug'] = character.realm.slug
